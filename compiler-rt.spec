@@ -5,7 +5,7 @@
 
 Name:		compiler-rt
 Version:	3.9.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -70,6 +70,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Mon Nov 21 2016 Dan Horák <dan[at]danny.cz> - 3.9.0-3
 - disable debuginfo on s390(x)
 
