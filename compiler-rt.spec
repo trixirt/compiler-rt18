@@ -4,8 +4,8 @@
 %endif
 
 Name:		compiler-rt
-Version:	3.9.0
-Release:	4%{?dist}
+Version:	3.9.1
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -70,6 +70,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Thu Mar 02 2017 Dave Airlie <airlied@redhat.com> - 3.9.1-1
+- compiler-rt 3.9.1
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
