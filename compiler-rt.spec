@@ -4,7 +4,7 @@
 %endif
 
 Name:		compiler-rt
-Version:	3.9.1
+Version:	4.0.0
 Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
@@ -70,6 +70,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Tue Mar 14 2017 Tom Stellard <tstellar@redhat.com> - 4.0.0-1
+- compiler-rt 4.0.0 Final Release
+
 * Thu Mar 02 2017 Dave Airlie <airlied@redhat.com> - 3.9.1-1
 - compiler-rt 3.9.1
 
