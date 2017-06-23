@@ -5,12 +5,13 @@
 
 Name:		compiler-rt
 Version:	4.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
 Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}.src.tar.xz
+Patch0:	0001-Build-fixes-for-newer-glibc.patch
 
 BuildRequires:	cmake
 BuildRequires:	python
@@ -24,7 +25,7 @@ code generation, sanitizer runtimes and profiling library for code
 instrumentation, and Blocks C language extension.
 
 %prep
-%setup -q -n %{name}-%{version}.src
+%autosetup -n %{name}-%{version}.src -p1
 
 %build
 mkdir -p _build
@@ -70,6 +71,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Fri Jun 23 2017 Tom Stellard <tstelar@redhat.com> - 4.0.1-2
+- Fix build with newer glibc
+
 * Fri Jun 23 2017 Tom Stellard <tstellar@redhat.com> - 4.0.1-1
 - 4.0.1 Release
 
