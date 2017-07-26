@@ -5,7 +5,7 @@
 
 Name:		compiler-rt
 Version:	4.0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -71,6 +71,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Fri Jun 23 2017 Tom Stellard <tstelar@redhat.com> - 4.0.1-2
 - Fix build with newer glibc
 
