@@ -4,8 +4,8 @@
 %endif
 
 Name:		compiler-rt
-Version:	4.0.1
-Release:	6%{?dist}
+Version:	5.0.0
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -15,12 +15,11 @@ Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}.src.tar.xz
 # of compiler-rt, because upstream moved the code into the compiler-rt project
 # for LLVM 6.0.0, and we also don't want to add clang as a build dependency for
 # llvm.
-# wget http://llvm.org/releases/4.0.1/llvm-4.0.1.src.tar.xz
-# tar -xJf llvm-4.0.1.src.tar.xz
-# cd llvm-4.0.1.src/lib/Fuzzer/
-# tar -cJf Fuzzer.tar.xz Fuzzer/
+# wget http://llvm.org/releases/5.0.0/llvm-5.0.0.src.tar.xz
+# tar -xJf llvm-5.0.0.src.tar.xz
+# cd llvm-5.0.0.src/lib/
+# tar -cJf Fuzzer-5.0.0.tar.xz Fuzzer/
 Source1: Fuzzer.tar.xz
-Patch0:	0001-Build-fixes-for-newer-glibc.patch
 Patch1:	0001-Fix-AArch64-build-with-glibc-2.26.patch
 
 BuildRequires:	cmake
@@ -94,6 +93,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Fri Oct 13 2017 Tom Stellard <tstellar@redhat.com> - 5.0.0-1
+- 5.0.0 Release
+
 * Mon Sep 25 2017 Tom Stellard <tstellar@redhat.com> - 4.0.1-6
 - Fix AArch64 build with glibc 2.26
 
