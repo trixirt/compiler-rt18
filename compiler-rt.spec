@@ -19,7 +19,7 @@ Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}.src.tar.xz
 # tar -xJf llvm-5.0.0.src.tar.xz
 # cd llvm-5.0.0.src/lib/
 # tar -cJf Fuzzer-5.0.0.tar.xz Fuzzer/
-Source1: Fuzzer.tar.xz
+Source1: Fuzzer-5.0.0.tar.xz
 Patch1:	0001-Fix-AArch64-build-with-glibc-2.26.patch
 
 BuildRequires:	cmake
