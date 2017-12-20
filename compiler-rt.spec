@@ -4,7 +4,7 @@
 %endif
 
 Name:		compiler-rt
-Version:	5.0.0
+Version:	5.0.1
 Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
@@ -15,11 +15,11 @@ Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}.src.tar.xz
 # of compiler-rt, because upstream moved the code into the compiler-rt project
 # for LLVM 6.0.0, and we also don't want to add clang as a build dependency for
 # llvm.
-# wget http://llvm.org/releases/5.0.0/llvm-5.0.0.src.tar.xz
-# tar -xJf llvm-5.0.0.src.tar.xz
-# cd llvm-5.0.0.src/lib/
-# tar -cJf Fuzzer-5.0.0.tar.xz Fuzzer/
-Source1: Fuzzer-5.0.0.tar.xz
+# wget http://llvm.org/releases/5.0.1/llvm-5.0.1.src.tar.xz
+# tar -xJf llvm-5.0.1.src.tar.xz
+# cd llvm-5.0.1.src/lib/
+# tar -cJf Fuzzer-5.0.1.tar.xz Fuzzer/
+Source1: Fuzzer-5.0.1.tar.xz
 Patch1:	0001-Fix-AArch64-build-with-glibc-2.26.patch
 
 BuildRequires:	cmake
@@ -93,6 +93,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Wed Dec 20 2017 Tom Stellard <tstellar@redhat.com> - 5.0.1-1
+- 5.0.1 Release
+
 * Fri Oct 13 2017 Tom Stellard <tstellar@redhat.com> - 5.0.0-1
 - 5.0.0 Release
 
