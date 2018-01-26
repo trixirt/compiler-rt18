@@ -3,22 +3,16 @@
 %global debug_package %{nil}
 %endif
 
+%global rc_ver 1
+
 Name:		compiler-rt
-Version:	5.0.1
-Release:	2%{?dist}
+Version:	6.0.0
+Release:	0.1.rc%{rc_ver}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
-Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}.src.tar.xz
-# Extract libFuzzer sources from the llvm tarball.  We are packaging it as part
-# of compiler-rt, because upstream moved the code into the compiler-rt project
-# for LLVM 6.0.0.
-# wget http://llvm.org/releases/5.0.1/llvm-5.0.1.src.tar.xz
-# tar -xJf llvm-5.0.1.src.tar.xz
-# cd llvm-5.0.1.src/lib/
-# tar -cJf Fuzzer-5.0.1.tar.xz Fuzzer/
-Source1: Fuzzer-5.0.1.tar.xz
+Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}%{?rc_ver:rc%{rc_ver}}.src.tar.xz
 Patch1:	0001-Fix-AArch64-build-with-glibc-2.26.patch
 
 BuildRequires:	cmake
@@ -33,9 +27,7 @@ code generation, sanitizer runtimes and profiling library for code
 instrumentation, and Blocks C language extension.
 
 %prep
-%setup -T -q -b 1 -n Fuzzer
-
-%autosetup -n %{name}-%{version}.src -p1
+%autosetup -n %{name}-%{version}%{?rc_ver:rc%{rc_ver}}.src -p1
 
 %build
 mkdir -p _build
@@ -53,24 +45,17 @@ cd _build
 
 make %{?_smp_mflags}
 
-# Build Fuzzer with gcc
-export CXX=g++
-pushd ../../Fuzzer
-./build.sh
-popd
-
 %install
 cd _build
 make install DESTDIR=%{buildroot}
 
 mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib
 
-pushd ../../Fuzzer
-install -m0644 libFuzzer.a %{buildroot}%{_libdir}/clang/%{version}/lib
-popd
+%ifarch aarch64
+%global aarch64_blacklists hwasan_blacklist.txt
+%endif
 
-# move sanitizer lists to better place
-for file in asan_blacklist.txt msan_blacklist.txt dfsan_blacklist.txt cfi_blacklist.txt dfsan_abilist.txt; do
+for file in %{aarch64_blacklists} asan_blacklist.txt msan_blacklist.txt dfsan_blacklist.txt cfi_blacklist.txt dfsan_abilist.txt; do
 	mv -v %{buildroot}%{_prefix}/${file} %{buildroot}%{_libdir}/clang/%{version}/ || :
 done
 
@@ -91,6 +76,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Thu Jan 25 2018 Tom Stellard <tstellar@redhat.com> - 6.0.0-0.1.rc1
+- 6.0.0-rc1 Release
+
 * Wed Jan 17 2018 Tom Stellard <tstellar@redhat.com> - 5.0.1-2
 - Build libFuzzer with gcc
 
