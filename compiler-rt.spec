@@ -7,13 +7,12 @@
 
 Name:		compiler-rt
 Version:	6.0.0
-Release:	0.2.rc%{rc_ver}%{?dist}
+Release:	0.3.rc%{rc_ver}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
 Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}%{?rc_ver:rc%{rc_ver}}.src.tar.xz
-Patch1:	0001-Fix-AArch64-build-with-glibc-2.26.patch
 
 BuildRequires:	cmake
 BuildRequires:	python
@@ -76,6 +75,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Tue Feb 13 2018 Tom Stellard <tstellar@redhat.com> - 6.0.0-0.3.rc1
+- Fix build on AArch64
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-0.2.rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
