@@ -3,11 +3,9 @@
 %global debug_package %{nil}
 %endif
 
-%global rc_ver 2
-
 Name:		compiler-rt
 Version:	6.0.0
-Release:	0.4.rc%{rc_ver}%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -75,6 +73,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Thu Mar 08 2018 Tom Stellard <tstellar@redhat.com> - 6.0.0-1
+- 6.0.0 Release
+
 * Tue Feb 13 2018 Tom Stellard <tstellar@redhat.com> - 6.0.0-0.4.rc2
 - 6.0.0-rc2 Release
 
