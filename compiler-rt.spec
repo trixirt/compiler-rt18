@@ -5,7 +5,7 @@
 
 Name:		compiler-rt
 Version:	6.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -13,7 +13,7 @@ URL:		http://llvm.org
 Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}%{?rc_ver:rc%{rc_ver}}.src.tar.xz
 
 BuildRequires:	cmake
-BuildRequires:	python
+BuildRequires:	python2
 BuildRequires:  llvm-devel = %{version}
 BuildRequires:  llvm-static = %{version}
 
@@ -73,6 +73,10 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Mon Mar 19 2018 Iryna Shcherbina <ishcherb@redhat.com> - 6.0.0-2
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Thu Mar 08 2018 Tom Stellard <tstellar@redhat.com> - 6.0.0-1
 - 6.0.0 Release
 
