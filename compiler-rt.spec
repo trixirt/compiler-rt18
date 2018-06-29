@@ -4,8 +4,8 @@
 %endif
 
 Name:		compiler-rt
-Version:	6.0.0
-Release:	2%{?dist}
+Version:	6.0.1
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -73,6 +73,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Thu Jun 28 2018 Tom Stellard <tstellar@redhat.com> - 6.0.1-1
+- 6.0.1 Release
+
 * Mon Mar 19 2018 Iryna Shcherbina <ishcherb@redhat.com> - 6.0.0-2
 - Update Python 2 dependency declarations to new packaging standards
   (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
