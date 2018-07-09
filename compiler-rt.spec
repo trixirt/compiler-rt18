@@ -12,6 +12,8 @@ License:	NCSA or MIT
 URL:		http://llvm.org
 Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}%{?rc_ver:rc%{rc_ver}}.src.tar.xz
 
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:	cmake
 BuildRequires:	python2
 BuildRequires:  llvm-devel = %{version}
