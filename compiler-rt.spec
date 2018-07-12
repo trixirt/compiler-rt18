@@ -5,7 +5,7 @@
 
 Name:		compiler-rt
 Version:	6.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -75,6 +75,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Thu Jun 28 2018 Tom Stellard <tstellar@redhat.com> - 6.0.1-1
 - 6.0.1 Release
 
