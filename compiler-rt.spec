@@ -3,14 +3,18 @@
 %global debug_package %{nil}
 %endif
 
+%global rc_ver 1
+
+%global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
+
 Name:		compiler-rt
-Version:	6.0.1
-Release:	2%{?dist}
+Version:	7.0.0
+Release:	0.1.rc%{rc_ver}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
-Source0:	http://llvm.org/releases/%{version}/%{name}-%{version}%{?rc_ver:rc%{rc_ver}}.src.tar.xz
+Source0:	http://llvm.org/releases/%{version}/%{crt_srcdir}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -26,7 +30,7 @@ code generation, sanitizer runtimes and profiling library for code
 instrumentation, and Blocks C language extension.
 
 %prep
-%autosetup -n %{name}-%{version}%{?rc_ver:rc%{rc_ver}}.src -p1
+%autosetup -n %{crt_srcdir} -p1
 
 %build
 mkdir -p _build
@@ -54,8 +58,8 @@ mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib
 %global aarch64_blacklists hwasan_blacklist.txt
 %endif
 
-for file in %{aarch64_blacklists} asan_blacklist.txt msan_blacklist.txt dfsan_blacklist.txt cfi_blacklist.txt dfsan_abilist.txt; do
-	mv -v %{buildroot}%{_prefix}/${file} %{buildroot}%{_libdir}/clang/%{version}/ || :
+for file in %{aarch64_blacklists} asan_blacklist.txt msan_blacklist.txt dfsan_blacklist.txt cfi_blacklist.txt dfsan_abilist.txt hwasan_blacklist.txt; do
+	mv -v %{buildroot}%{_datadir}/${file} %{buildroot}%{_libdir}/clang/%{version}/ || :
 done
 
 # move sanitizer libs to better place
@@ -75,6 +79,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Tue Aug 14 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-0.1.rc1
+- 7.0.0-rc1 Release
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
