@@ -9,7 +9,7 @@
 
 Name:		compiler-rt
 Version:	7.0.0
-Release:	0.1.rc%{rc_ver}%{?dist}
+Release:	0.2.rc%{rc_ver}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -19,7 +19,6 @@ Source0:	http://llvm.org/releases/%{version}/%{crt_srcdir}.tar.xz
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:	cmake
-BuildRequires:	python2
 BuildRequires:  llvm-devel = %{version}
 BuildRequires:  llvm-static = %{version}
 
@@ -79,6 +78,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Thu Sep 06 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-0.2.rc1
+- Drop BuildRequires: python2
+
 * Tue Aug 14 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-0.1.rc1
 - 7.0.0-rc1 Release
 
