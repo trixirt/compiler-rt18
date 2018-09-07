@@ -1,0 +1,24 @@
+From 1353b7e97319f82ceee621e2e321c3f932c391fa Mon Sep 17 00:00:00 2001
+From: Tom Stellard <tstellar@redhat.com>
+Date: Thu, 6 Sep 2018 17:32:09 -0700
+Subject: [PATCH] cmake: Don't prefer python2.7
+
+---
+ CMakeLists.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 86ca2b3..ef8effa 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -71,7 +71,6 @@ if (COMPILER_RT_STANDALONE_BUILD)
+   endif()
+ 
+   # Find Python interpreter.
+-  set(Python_ADDITIONAL_VERSIONS 2.7 2.6 2.5)
+   include(FindPythonInterp)
+   if(NOT PYTHONINTERP_FOUND)
+     message(FATAL_ERROR "
+-- 
+1.8.3.1
+

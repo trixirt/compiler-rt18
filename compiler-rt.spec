@@ -9,16 +9,21 @@
 
 Name:		compiler-rt
 Version:	7.0.0
-Release:	0.2.rc%{rc_ver}%{?dist}
+Release:	0.3.rc%{rc_ver}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
 Source0:	http://llvm.org/releases/%{version}/%{crt_srcdir}.tar.xz
 
+Patch0: 0001-cmake-Don-t-prefer-python2.7.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:	cmake
+BuildRequires:	python3
+# We need python3-devel for pathfix.py.
+BuildRequires:	python3-devel
 BuildRequires:  llvm-devel = %{version}
 BuildRequires:  llvm-static = %{version}
 
@@ -30,6 +35,8 @@ instrumentation, and Blocks C language extension.
 
 %prep
 %autosetup -n %{crt_srcdir} -p1
+
+pathfix.py -i %{__python3} -pn .
 
 %build
 mkdir -p _build
@@ -78,6 +85,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Fri Sep 07 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-0.3.rc1
+- Use python3 for build scripts
+
 * Thu Sep 06 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-0.2.rc1
 - Drop BuildRequires: python2
 
