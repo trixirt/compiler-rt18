@@ -3,13 +3,13 @@
 %global debug_package %{nil}
 %endif
 
-%global rc_ver 1
+%global rc_ver 3
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		compiler-rt
 Version:	7.0.0
-Release:	0.3.rc%{rc_ver}%{?dist}
+Release:	0.4.rc%{rc_ver}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -85,6 +85,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Wed Sep 12 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-0.4.rc3
+- 7.0.0-rc3 Release
+
 * Fri Sep 07 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-0.3.rc1
 - Use python3 for build scripts
 
