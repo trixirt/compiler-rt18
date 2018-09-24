@@ -3,13 +3,11 @@
 %global debug_package %{nil}
 %endif
 
-%global rc_ver 3
-
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		compiler-rt
 Version:	7.0.0
-Release:	0.4.rc%{rc_ver}%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -85,6 +83,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Mon Sep 24 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-1
+- 7.0.0-1 Release
+
 * Wed Sep 12 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-0.4.rc3
 - 7.0.0-rc3 Release
 
