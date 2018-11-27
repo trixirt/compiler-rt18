@@ -3,16 +3,18 @@
 %global debug_package %{nil}
 %endif
 
+#%%global rc_ver 3
+
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		compiler-rt
-Version:	7.0.0
-Release:	2%{?dist}
+Version:	7.0.1
+Release:	1%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
-Source0:	http://llvm.org/releases/%{version}/%{crt_srcdir}.tar.xz
+Source0:	http://%{?rc_ver:pre}releases.llvm.org/%{version}/%{?rc_ver:rc%{rc_ver}}/%{crt_srcdir}.tar.xz
 
 Patch0: 0001-cmake-Don-t-prefer-python2.7.patch
 
@@ -84,6 +86,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Mon Dec 17 2018 sguelton@redhat.com - 7.0.1-1
+- 7.0.1 Release
+
 * Tue Dec 04 2018 sguelton@redhat.com - 7.0.0-2
 - Ensure rpmlint passes on specfile
 
