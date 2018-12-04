@@ -7,7 +7,7 @@
 
 Name:		compiler-rt
 Version:	7.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -16,14 +16,14 @@ Source0:	http://llvm.org/releases/%{version}/%{crt_srcdir}.tar.xz
 
 Patch0: 0001-cmake-Don-t-prefer-python2.7.patch
 
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires:	gcc
+BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	python3
 # We need python3-devel for pathfix.py.
 BuildRequires:	python3-devel
-BuildRequires:  llvm-devel = %{version}
-BuildRequires:  llvm-static = %{version}
+BuildRequires:	llvm-devel = %{version}
+BuildRequires:	llvm-static = %{version}
 
 %description
 The compiler-rt project is a part of the LLVM project. It provides
@@ -44,9 +44,9 @@ cd _build
 	-DLLVM_CONFIG_PATH:FILEPATH=%{_bindir}/llvm-config-%{__isa_bits} \
 	\
 %if 0%{?__isa_bits} == 64
-        -DLLVM_LIBDIR_SUFFIX=64 \
+	-DLLVM_LIBDIR_SUFFIX=64 \
 %else
-        -DLLVM_LIBDIR_SUFFIX= \
+	-DLLVM_LIBDIR_SUFFIX= \
 %endif
 	-DCOMPILER_RT_INCLUDE_TESTS:BOOL=OFF # could be on?
 
@@ -67,7 +67,8 @@ for file in %{aarch64_blacklists} asan_blacklist.txt msan_blacklist.txt dfsan_bl
 done
 
 # move sanitizer libs to better place
-mv -v %{buildroot}%{_prefix}/lib/linux/libclang_rt* %{buildroot}%{_libdir}/clang/%{version}/lib
+%global libclang_rt_installdir lib/linux
+mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/libclang_rt* %{buildroot}%{_libdir}/clang/%{version}/lib
 mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib/linux/
 pushd %{buildroot}%{_libdir}/clang/%{version}/lib
 for i in *.a *.syms *.so; do
@@ -83,6 +84,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Tue Dec 04 2018 sguelton@redhat.com - 7.0.0-2
+- Ensure rpmlint passes on specfile
+
 * Mon Sep 24 2018 Tom Stellard <tstellar@redhat.com> - 7.0.0-1
 - 7.0.0-1 Release
 
