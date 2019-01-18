@@ -9,7 +9,7 @@
 
 Name:		compiler-rt
 Version:	7.0.1
-Release:	1%{?rc_ver:.rc%{rc_ver}}%{?dist}
+Release:	2%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -17,6 +17,7 @@ URL:		http://llvm.org
 Source0:	http://%{?rc_ver:pre}releases.llvm.org/%{version}/%{?rc_ver:rc%{rc_ver}}/%{crt_srcdir}.tar.xz
 
 Patch0: 0001-cmake-Don-t-prefer-python2.7.patch
+Patch1: 0001-sanitizer-Remove-rsp-from-the-clobber-list-in-intern.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -86,6 +87,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Fri Jan 18 2019 sguelton@redhat.com - 7.0.1-2
+- GCC-9 compatibility
+
 * Mon Dec 17 2018 sguelton@redhat.com - 7.0.1-1
 - 7.0.1 Release
 

@@ -1,0 +1,57 @@
+From 4e657713e97a0e0b0ea907d5f8348fc3fedad70a Mon Sep 17 00:00:00 2001
+From: cryptoad <cryptoad@91177308-0d34-0410-b5e6-96231b3b80d8>
+Date: Thu, 9 Aug 2018 20:01:11 +0000
+Subject: [PATCH] [sanitizer] Remove rsp from the clobber list in
+ internal_clone
+
+Summary:
+When compiling with WERROR=ON, a new fatal warning started popping up recently
+(due to -Werror,-Winline-asm):
+```
+.../lib/sanitizer_common/sanitizer_linux.cc:1214:24: error: inline asm clobber list contains reserved registers: RSP [-Werror,-Winline-asm]
+                       "syscall\n"
+                       ^
+<inline asm>:1:1: note: instantiated into assembly here
+        syscall
+^
+.../lib/sanitizer_common/sanitizer_linux.cc:1214:24: note: Reserved registers on the clobber list may not be preserved across the asm statement, and clobbering them may lead to undefined behaviour.
+                       "syscall\n"
+                       ^
+<inline asm>:1:1: note: instantiated into assembly here
+        syscall
+^
+```
+
+Removing `rsp` from the clobber list makes the warning go away, and does not
+appear to have a functional impact. If there is another way to solve this, let
+me know.
+
+Reviewers: eugenis, vitalybuka
+
+Reviewed By: eugenis
+
+Subscribers: kubamracek, delcypher, llvm-commits, #sanitizers
+
+Differential Revision: https://reviews.llvm.org/D50519
+
+git-svn-id: http://llvm.org/svn/llvm-project/compiler-rt/trunk@339370 91177308-0d34-0410-b5e6-96231b3b80d8
+---
+ lib/sanitizer_common/sanitizer_linux.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/sanitizer_common/sanitizer_linux.cc b/lib/sanitizer_common/sanitizer_linux.cc
+index 6b8b9fd2e..8d39c4d90 100644
+--- a/lib/sanitizer_common/sanitizer_linux.cc
++++ b/lib/sanitizer_common/sanitizer_linux.cc
+@@ -1244,7 +1244,7 @@ uptr internal_clone(int (*fn)(void *), void *child_stack, int flags, void *arg,
+                          "d"(parent_tidptr),
+                          "r"(r8),
+                          "r"(r10)
+-                       : "rsp", "memory", "r11", "rcx");
++                       : "memory", "r11", "rcx");
+   return res;
+ }
+ #elif defined(__mips__)
+-- 
+2.19.2
+
