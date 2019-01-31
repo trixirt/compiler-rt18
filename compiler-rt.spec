@@ -9,7 +9,7 @@
 
 Name:		compiler-rt
 Version:	7.0.1
-Release:	2%{?rc_ver:.rc%{rc_ver}}%{?dist}
+Release:	2%{?rc_ver:.rc%{rc_ver}}%{?dist}.1
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -87,6 +87,9 @@ cd _build
 %{_libdir}/clang/%{version}
 
 %changelog
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Fri Jan 18 2019 sguelton@redhat.com - 7.0.1-2
 - GCC-9 compatibility
 
