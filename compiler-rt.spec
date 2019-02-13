@@ -3,21 +3,20 @@
 %global debug_package %{nil}
 %endif
 
-#%%global rc_ver 3
+%global rc_ver 1
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		compiler-rt
-Version:	7.0.1
-Release:	2%{?rc_ver:.rc%{rc_ver}}%{?dist}.1
+Version:	8.0.0
+Release:	1%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
 Source0:	http://%{?rc_ver:pre}releases.llvm.org/%{version}/%{?rc_ver:rc%{rc_ver}}/%{crt_srcdir}.tar.xz
 
-Patch0: 0001-cmake-Don-t-prefer-python2.7.patch
-Patch1: 0001-sanitizer-Remove-rsp-from-the-clobber-list-in-intern.patch
+Patch0:		0001-PATCH-std-thread-copy.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -79,14 +78,16 @@ for i in *.a *.syms *.so; do
 done
 
 %check
-cd _build
-#make check-all
+#make check-all -C _build
 
 %files
 %{_includedir}/*
 %{_libdir}/clang/%{version}
 
 %changelog
+* Mon Feb 11 2019 sguelton@redhat.com - 8.0.0-1.rc1
+- 8.0.0 Release candidate 1
+
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
