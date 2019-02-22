@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 %endif
 
-%global rc_ver 1
+%global rc_ver 2
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -85,6 +85,9 @@ done
 %{_libdir}/clang/%{version}
 
 %changelog
+* Fri Feb 22 2019 sguelton@redhat.com - 8.0.0-1.rc2
+- 8.0.0 Release candidate 2
+
 * Mon Feb 11 2019 sguelton@redhat.com - 8.0.0-1.rc1
 - 8.0.0 Release candidate 1
 
