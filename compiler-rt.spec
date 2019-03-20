@@ -3,13 +3,13 @@
 %global debug_package %{nil}
 %endif
 
-%global rc_ver 4
+#%%global rc_ver 4
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		compiler-rt
 Version:	8.0.0
-Release:	0.4%{?rc_ver:.rc%{rc_ver}}%{?dist}
+Release:	1%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -85,6 +85,9 @@ done
 %{_libdir}/clang/%{version}
 
 %changelog
+* Wed Mar 20 2019 sguelton@redhat.com - 8.0.0-1
+- 8.0.0 final
+
 * Tue Mar 12 2019 sguelton@redhat.com - 8.0.0-0.4.rc4
 - 8.0.0 Release candidate 4
 
