@@ -9,7 +9,7 @@
 
 Name:		compiler-rt
 Version:	8.0.0
-Release:	2%{?rc_ver:.rc%{rc_ver}}%{?dist}
+Release:	2%{?rc_ver:.rc%{rc_ver}}%{?dist}.1
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -115,6 +115,9 @@ fi
 %{_libdir}/clang/%{version}
 
 %changelog
+* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Tue Jun 18 2019 sguelton@redhat.com - 8.0.0-2
 - Fix rhbz#1678240
 
