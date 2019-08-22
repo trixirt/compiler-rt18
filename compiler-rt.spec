@@ -3,13 +3,14 @@
 %global debug_package %{nil}
 %endif
 
-#%%global rc_ver 4
+%global rc_ver 3
+%global baserelease 0.1
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		compiler-rt
-Version:	8.0.0
-Release:	2%{?rc_ver:.rc%{rc_ver}}%{?dist}.1
+Version:	9.0.0
+Release:	%{baserelease}%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -70,7 +71,7 @@ done
 
 # move sanitizer libs to better place
 %global libclang_rt_installdir lib/linux
-mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/libclang_rt* %{buildroot}%{_libdir}/clang/%{version}/lib
+mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/*clang_rt* %{buildroot}%{_libdir}/clang/%{version}/lib
 mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib/linux/
 pushd %{buildroot}%{_libdir}/clang/%{version}/lib
 for i in *.a *.so
@@ -115,6 +116,9 @@ fi
 %{_libdir}/clang/%{version}
 
 %changelog
+* Thu Aug 22 2019 Tom Stellard <tstellar@redhat.com> - 9.0.0-0.1.rc3
+- 9.0.0-rc3 Release
+
 * Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
