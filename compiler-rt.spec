@@ -4,7 +4,7 @@
 %endif
 
 #%%global rc_ver 3
-%global baserelease 1
+%global baserelease 2
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -116,6 +116,9 @@ fi
 %{_libdir}/clang/%{version}
 
 %changelog
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Thu Sep 19 2019 Tom Stellard <tstellar@redhat.com> - 9.0.0-1
 - 9.0.0 Release
 
