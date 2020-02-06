@@ -11,7 +11,7 @@
 # see https://sourceware.org/bugzilla/show_bug.cgi?id=25271
 %global optflags %(echo %{optflags} -D_DEFAULT_SOURCE)
 
-# because c11 disables the asm keyword, while __asm__ is reliably supported
+# see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93615
 %global optflags %(echo %{optflags} -Dasm=__asm__)
 
 Name:		compiler-rt
