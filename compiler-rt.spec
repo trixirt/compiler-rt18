@@ -3,19 +3,27 @@
 %global debug_package %{nil}
 %endif
 
-#%%global rc_ver 3
-%global baserelease 2
+%global rc_ver 1
+%global baserelease 0.1
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
+# see https://sourceware.org/bugzilla/show_bug.cgi?id=25271
+%global optflags %(echo %{optflags} -D_DEFAULT_SOURCE)
+
+# because c11 disables the asm keyword, while __asm__ is reliably supported
+%global optflags %(echo %{optflags} -Dasm=__asm__)
+
 Name:		compiler-rt
-Version:	9.0.0
+Version:	10.0.0
 Release:	%{baserelease}%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
 Source0:	http://%{?rc_ver:pre}releases.llvm.org/%{version}/%{?rc_ver:rc%{rc_ver}}/%{crt_srcdir}.tar.xz
+Source1:	https://%{?rc_ver:pre}releases.llvm.org/%{version}/%{?rc_ver:rc%{rc_ver}}/%{crt_srcdir}.tar.xz.sig
+Source2:	https://prereleases.llvm.org/%{version}/hans-gpg-key.asc
 
 Patch0:		0001-PATCH-std-thread-copy.patch
 
@@ -37,7 +45,7 @@ instrumentation, and Blocks C language extension.
 %prep
 %autosetup -n %{crt_srcdir} -p1
 
-pathfix.py -i %{__python3} -pn .
+pathfix.py -i %{__python3} -pn lib/hwasan/scripts/hwasan_symbolize
 
 %build
 mkdir -p _build
@@ -114,8 +122,15 @@ fi
 %files
 %{_includedir}/*
 %{_libdir}/clang/%{version}
+%ifarch x86_64 aarch64
+%{_bindir}/hwasan_symbolize
+%endif
 
 %changelog
+
+* Fri Jan 31 2020 sguelton@redhat.com - 10.0.0-0.1.rc1
+- 10.0.0 rc1
+
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
