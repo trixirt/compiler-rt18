@@ -4,7 +4,7 @@
 %endif
 
 %global rc_ver 1
-%global baserelease 0.1
+%global baserelease 0.2
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -67,18 +67,13 @@ make %{?_smp_mflags}
 cd _build
 make install DESTDIR=%{buildroot}
 
-mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib
-
-%ifarch aarch64
-%global aarch64_blacklists hwasan_blacklist.txt
-%endif
-
-for file in %{aarch64_blacklists} asan_blacklist.txt msan_blacklist.txt dfsan_blacklist.txt cfi_blacklist.txt dfsan_abilist.txt hwasan_blacklist.txt; do
-	mv -v %{buildroot}%{_datadir}/${file} %{buildroot}%{_libdir}/clang/%{version}/ || :
-done
+# move blacklist/abilist files to where clang expect them
+mkdir -p %{buildroot}%{_libdir}/clang/%{version}/share
+mv -v %{buildroot}%{_datadir}/*list.txt  %{buildroot}%{_libdir}/clang/%{version}/share/
 
 # move sanitizer libs to better place
 %global libclang_rt_installdir lib/linux
+mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib
 mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/*clang_rt* %{buildroot}%{_libdir}/clang/%{version}/lib
 mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib/linux/
 pushd %{buildroot}%{_libdir}/clang/%{version}/lib
@@ -127,6 +122,9 @@ fi
 %endif
 
 %changelog
+
+* Wed Feb 12 2020 sguelton@redhat.com - 10.0.0-0.2.rc1
+- Ship blacklist files in the proper directory, see rhbz#1794936
 
 * Fri Jan 31 2020 sguelton@redhat.com - 10.0.0-0.1.rc1
 - 10.0.0 rc1
