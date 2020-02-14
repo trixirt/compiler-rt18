@@ -3,8 +3,8 @@
 %global debug_package %{nil}
 %endif
 
-%global rc_ver 1
-%global baserelease 0.2
+%global rc_ver 2
+%global baserelease 0.1
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -122,6 +122,9 @@ fi
 %endif
 
 %changelog
+
+* Fri Feb 14 2020 sguelton@redhat.com - 10.0.0-0.1.rc2
+- 10.0.0 rc2
 
 * Wed Feb 12 2020 sguelton@redhat.com - 10.0.0-0.2.rc1
 - Ship blacklist files in the proper directory, see rhbz#1794936
