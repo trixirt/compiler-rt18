@@ -3,8 +3,8 @@
 %global debug_package %{nil}
 %endif
 
-%global rc_ver 2
-%global baserelease 0.1
+%global rc_ver 3
+%global baserelease 0.3
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -122,6 +122,9 @@ fi
 %endif
 
 %changelog
+
+* Thu Mar 5 2020 sguelton@redhat.com - 10.0.0-0.3.rc3
+- 10.0.0 rc3
 
 * Fri Feb 14 2020 sguelton@redhat.com - 10.0.0-0.1.rc2
 - 10.0.0 rc2
