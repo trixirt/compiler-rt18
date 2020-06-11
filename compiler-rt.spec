@@ -4,7 +4,7 @@
 %endif
 
 #%%global rc_ver 6
-%global baserelease 1
+%global baserelease 2
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -31,6 +31,7 @@ Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{versio
 Source2:	https://prereleases.llvm.org/%{version}/hans-gpg-key.asc
 
 Patch0:		0001-PATCH-std-thread-copy.patch
+Patch1:		0001-Fix-strict-aliasing-warning-in-msan.cpp.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -127,6 +128,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 11 2020 sguelton@redhat.com - 10.0.0-2
+- Fix msan compilation warnings, see af38074874c605f9 upstream
+
 * Mon Mar 30 2020 sguelton@redhat.com - 10.0.0-1
 - 10.0.0 final
 
