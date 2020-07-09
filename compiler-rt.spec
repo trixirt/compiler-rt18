@@ -4,7 +4,7 @@
 %endif
 
 #%%global rc_ver 6
-%global baserelease 2
+%global baserelease 3
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -40,7 +40,6 @@ BuildRequires:	python3
 # We need python3-devel for pathfix.py.
 BuildRequires:	python3-devel
 BuildRequires:	llvm-devel = %{version}
-BuildRequires:	llvm-static = %{version}
 
 %description
 The compiler-rt project is a part of the LLVM project. It provides
@@ -128,6 +127,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 09 2020 Tom Stellard <tstellar@redhat.com> - 10.0.0-3
+- Drop dependency on llvm-static
+
 * Thu Jun 11 2020 sguelton@redhat.com - 10.0.0-2
 - Fix msan compilation warnings, see af38074874c605f9 upstream
 
