@@ -4,7 +4,7 @@
 %endif
 
 #%%global rc_ver 6
-%global baserelease 3
+%global baserelease 4
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -26,7 +26,7 @@ Source0:	https://prereleases.llvm.org/%{version}/rc%{rc_ver}/%{crt_srcdir}.tar.x
 Source1:	https://prereleases.llvm.org/%{version}/rc%{rc_ver}/%{crt_srcdir}.tar.xz.sig
 %else
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/%{crt_srcdir}.tar.xz
-Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/%{crt_srcdir}.tar.xz.sig
+Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/%{crt_srcdir}.tar.xz.sig
 %endif
 Source2:	https://prereleases.llvm.org/%{version}/hans-gpg-key.asc
 
@@ -41,6 +41,9 @@ BuildRequires:	python3
 BuildRequires:	python3-devel
 BuildRequires:	llvm-devel = %{version}
 
+# For gpg source verification
+BuildRequires:	gnupg2
+
 %description
 The compiler-rt project is a part of the LLVM project. It provides
 implementation of the low-level target-specific hooks required by
@@ -48,6 +51,7 @@ code generation, sanitizer runtimes and profiling library for code
 instrumentation, and Blocks C language extension.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{crt_srcdir} -p1
 
 pathfix.py -i %{__python3} -pn lib/hwasan/scripts/hwasan_symbolize
@@ -127,6 +131,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 15 2020 sguelton@redhat.com - 10.0.0-4
+- Correctly use gpg verification
+
 * Thu Jul 09 2020 Tom Stellard <tstellar@redhat.com> - 10.0.0-3
 - Drop dependency on llvm-static
 
