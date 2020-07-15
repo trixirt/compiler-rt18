@@ -4,7 +4,7 @@
 %endif
 
 #%%global rc_ver 6
-%global baserelease 4
+%global baserelease 5
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -90,35 +90,21 @@ for i in *.a *.so
 do
 	ln -s ../$i linux/$i
 done
-popd
 
-# multilib support: also create symlink from lib to lib64
-# fixes rhbz#1678240
-%ifarch %{ix86}
-%post
-if test "`uname -m`" = x86_64
-then
-	cd %{_libdir}/clang/%{version}/lib
-	mkdir -p ../../../../lib64/clang/%{version}/lib
-	for i in *.a *.so
-	do
-		ln -s ../../../../%{_lib}/clang/%{version}/lib/$i ../../../../lib64/clang/%{version}/lib/$i
-	done
-fi
+# multilib support: also create symlink from lib to lib64, fixes rhbz#1678240
+# the symlinks will be dangling if the 32 bits version is not installed, but that should be fine
+%ifarch x86_64
 
-%preun
-
-if test "`uname -m`" = x86_64
-then
-	cd %{_libdir}/clang/%{version}/lib
-	for i in *.a *.so
-	do
-		rm ../../../../lib64/clang/%{version}/lib/$i
-	done
-	rmdir -p ../../../../lib64/clang/%{version}/lib 2>/dev/null 1>/dev/null || :
-fi
-
+mkdir -p %{buildroot}/%{_exec_prefix}/lib/clang/%{version}/lib/linux
+for i in *.a *.so
+do
+	target=`echo "$i" | sed -e 's/x86_64/i386/'`
+	ln -s ../../../../../lib/clang/%{version}/lib/$target ../../../../%{_lib}/clang/%{version}/lib/linux/
+done
+ 
 %endif
+ 
+popd
 
 %check
 #make check-all -C _build
@@ -131,6 +117,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 15 2020 sguelton@redhat.com - 10.0.0-5
+- Fix multilib runtime links, see rhbz#1855379
+
 * Wed Jul 15 2020 sguelton@redhat.com - 10.0.0-4
 - Correctly use gpg verification
 
