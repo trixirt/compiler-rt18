@@ -1,10 +1,6 @@
-%ifarch s390 s390x
-# only limited set of libs available on s390(x) and the existing ones (stats, ubsan) don't provide debuginfo
-%global debug_package %{nil}
-%endif
 
 #%%global rc_ver 6
-%global baserelease 7
+%global baserelease 8
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -117,6 +113,9 @@ popd
 %endif
 
 %changelog
+* Mon Jul 27 2020 sguelton@redhat.com - 10.0.0-8
+- Remove now obsolete debuginfo package limitation
+
 * Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
