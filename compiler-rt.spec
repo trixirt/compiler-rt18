@@ -1,6 +1,6 @@
 
 #%%global rc_ver 6
-%global baserelease 8
+%global baserelease 9
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -106,6 +106,7 @@ popd
 #%%cmake_build --target check-compiler-rt
 
 %files
+%license LICENSE.TXT
 %{_includedir}/*
 %{_libdir}/clang/%{version}
 %ifarch x86_64 aarch64
@@ -113,6 +114,9 @@ popd
 %endif
 
 %changelog
+* Wed Jul 29 2020 sguelton@redhat.com - 10.0.0-9
+- use %%license macro
+
 * Mon Jul 27 2020 sguelton@redhat.com - 10.0.0-8
 - Remove now obsolete debuginfo package limitation
 
