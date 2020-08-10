@@ -1,6 +1,6 @@
 
-#%%global rc_ver 6
-%global baserelease 9
+%global rc_ver 1
+%global baserelease 0.1
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -11,7 +11,7 @@
 %global optflags %(echo %{optflags} -Dasm=__asm__)
 
 Name:		compiler-rt
-Version:	10.0.0
+Version:	11.0.0
 Release:	%{baserelease}%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
@@ -27,7 +27,6 @@ Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{versio
 Source2:	https://prereleases.llvm.org/%{version}/hans-gpg-key.asc
 
 Patch0:		0001-PATCH-std-thread-copy.patch
-Patch1:		0001-Fix-strict-aliasing-warning-in-msan.cpp.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -114,6 +113,9 @@ popd
 %endif
 
 %changelog
+* Mon Aug 10 2020 Tom Stellard <tstellar@redhat.com> - 11.0.0-0.1.rc1
+- 11.0.0-rc1 Release
+
 * Wed Jul 29 2020 sguelton@redhat.com - 10.0.0-9
 - use %%license macro
 
