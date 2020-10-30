@@ -1,6 +1,6 @@
 
 #%%global rc_ver 6
-%global baserelease 1
+%global baserelease 2
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -34,6 +34,8 @@ BuildRequires:	llvm-devel = %{version}
 
 # For gpg source verification
 BuildRequires:	gnupg2
+
+Requires: clang-resource-filesystem%{?isa} = %{version}
 
 %description
 The compiler-rt project is a part of the LLVM project. It provides
@@ -102,12 +104,16 @@ popd
 %files
 %license LICENSE.TXT
 %{_includedir}/*
-%{_libdir}/clang/%{version}
+%{_libdir}/clang/%{version}/lib/*
+%{_libdir}/clang/%{version}/share/*
 %ifarch x86_64 aarch64
 %{_bindir}/hwasan_symbolize
 %endif
 
 %changelog
+* Thu Oct 29 2020 Tom Stellard <tstellar@redhat.com> - 11.0.0-2
+- Add dependency on clang-resource-filesystem
+
 * Thu Oct 15 2020 sguelton@redhat.com - 11.0.0-1
 - Fix NVR
 
