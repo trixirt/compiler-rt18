@@ -1,6 +1,6 @@
 
-%global rc_ver 2
-%global baserelease 2
+#%%global rc_ver 2
+%global baserelease 3
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -111,6 +111,9 @@ popd
 %endif
 
 %changelog
+* Wed Jan 06 2021 Serge Guelton - 11.0.1-3
+- LLVM 11.0.1 final
+
 * Tue Dec 22 2020 sguelton@redhat.com - 11.0.1-2.rc2
 - llvm 11.0.1-rc2
 
