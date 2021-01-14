@@ -1,6 +1,5 @@
-
-#%%global rc_ver 2
-%global baserelease 3
+%global rc_ver 1
+%global baserelease 1
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -11,8 +10,8 @@
 %global optflags %(echo %{optflags} -Dasm=__asm__)
 
 Name:		compiler-rt
-Version:	11.0.1
-Release:	%{baserelease}%{?rc_ver:.rc%{rc_ver}}%{?dist}
+Version:	11.1.0
+Release:	%{?rc_ver:0.}%{baserelease}%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -111,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 14 2021 Serge Guelton - 11.1.0-0.1.rc1
+- 11.1.0-rc1 release
+
 * Wed Jan 06 2021 Serge Guelton - 11.0.1-3
 - LLVM 11.0.1 final
 
