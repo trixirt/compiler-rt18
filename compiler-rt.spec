@@ -1,5 +1,5 @@
-%global rc_ver 2
-%global baserelease 3
+%global rc_ver 1
+%global baserelease 1
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -10,7 +10,7 @@
 %global optflags %(echo %{optflags} -Dasm=__asm__)
 
 Name:		compiler-rt
-Version:	11.1.0
+Version:	12.0.0
 Release:	%{?rc_ver:0.}%{baserelease}%{?rc_ver:.rc%{rc_ver}}%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
@@ -91,9 +91,9 @@ do
 	target=`echo "$i" | sed -e 's/x86_64/i386/'`
 	ln -s ../../../../../lib/clang/%{version}/lib/$target ../../../../%{_lib}/clang/%{version}/lib/linux/
 done
- 
+
 %endif
- 
+
 popd
 
 %check
@@ -110,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Tue Feb 16 2021 Serge Guelton - 12.0.0-0.1.rc1
+- 12.0.0-rc1 release
+
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.0-0.3.rc2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
