@@ -1,5 +1,5 @@
-%global rc_ver 1
-%global baserelease 1
+%global rc_ver 2
+%global baserelease 2
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -110,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Thu Feb 25 2021 Serge Guelton - 12.0.0-0.2.rc2
+- 12.0.0-rc2 release
+
 * Tue Feb 16 2021 Serge Guelton - 12.0.0-0.1.rc1
 - 12.0.0-rc1 release
 
