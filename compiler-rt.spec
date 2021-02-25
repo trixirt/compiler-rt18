@@ -20,7 +20,7 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{versio
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz.sig
 Source2:	tstellar-gpg-key.asc
 
-Patch0:		0001-PATCH-std-thread-copy.patch
+Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
