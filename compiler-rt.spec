@@ -44,7 +44,7 @@ instrumentation, and Blocks C language extension.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -n %{crt_srcdir} -p1
+%autosetup -n %{crt_srcdir} -p2
 
 pathfix.py -i %{__python3} -pn lib/hwasan/scripts/hwasan_symbolize
 
