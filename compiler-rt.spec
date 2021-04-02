@@ -1,5 +1,5 @@
-%global rc_ver 3
-%global baserelease 4
+%global rc_ver 4
+%global baserelease 5
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -110,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Fri Apr 02 2021 sguelton@redhat.com - 12.0.0-0.5.rc4
+- New upstream release candidate
+
 * Thu Mar 11 2021 sguelton@redhat.com - 12.0.0-0.4.rc3
 - LLVM 12.0.0 rc3
 
