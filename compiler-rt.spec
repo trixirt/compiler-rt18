@@ -1,5 +1,5 @@
-%global rc_ver 4
-%global baserelease 5
+%global rc_ver 5
+%global baserelease 6
 
 %global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -110,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Thu Apr 08 2021 sguelton@redhat.com - 12.0.0-0.6.rc5
+- New upstream release candidate
+
 * Fri Apr 02 2021 sguelton@redhat.com - 12.0.0-0.5.rc4
 - New upstream release candidate
 
