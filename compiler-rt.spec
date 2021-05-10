@@ -10,7 +10,7 @@
 
 Name:		compiler-rt
 Version:	12.0.0%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -20,6 +20,7 @@ Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{versio
 Source2:	tstellar-gpg-key.asc
 
 Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
+Patch1:		0002-PATCH-compiler-rt-Sanitizer-built-against-glibc-2.34.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -109,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Mon May 10 2021 sguelton@redhat.com - 12.0.0-2
+- Backport 82150606fb11d28813ae6
+
 * Fri Apr 16 2021 Tom Stellard <tstellar@redhat.com> - 12.0.0-1
 - 12.0.0 Release
 
