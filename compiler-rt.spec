@@ -22,6 +22,7 @@ Source2:	tstellar-gpg-key.asc
 Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
 Patch1:		0002-PATCH-compiler-rt-Sanitizer-built-against-glibc-2.34.patch
 Patch2:		D102059.diff
+Patch3:		0003-PATCH-compiler-rt-Do-not-introduce-a-dependency-on-c.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
