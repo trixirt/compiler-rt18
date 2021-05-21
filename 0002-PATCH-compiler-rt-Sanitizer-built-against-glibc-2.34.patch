@@ -1,8 +1,7 @@
-From c85d1e10cad1fea2c43f9ec5332761d2ca725721 Mon Sep 17 00:00:00 2001
+From ffd0f69c375f12f081a1a5158a02a05000b7a93c Mon Sep 17 00:00:00 2001
 From: Vitaly Buka <vitalybuka@google.com>
 Date: Fri, 16 Apr 2021 09:50:24 -0700
-Subject: [PATCH 2/2] [PATCH][compiler-rt] Sanitizer built against glibc 2.34
- doesn't work
+Subject: [PATCH][compiler-rt] Sanitizer built against glibc 2.34 doesn't work
 
 As mentioned in https://gcc.gnu.org/PR100114 , glibc starting with the
 https://sourceware.org/git/?p=glibc.git;a=commit;h=6c57d320484988e87e446e2e60ce42816bf51d53

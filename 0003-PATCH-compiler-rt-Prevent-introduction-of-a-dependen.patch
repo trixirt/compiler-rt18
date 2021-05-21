@@ -1,0 +1,54 @@
+From 96339090681ae1dd9afe186ea14a460b61794707 Mon Sep 17 00:00:00 2001
+From: serge-sans-paille <sguelton@redhat.com>
+Date: Tue, 11 May 2021 14:38:21 +0200
+Subject: [PATCH][compiler-rt] Prevent introduction of a dependency of
+ libasan.a on libstdc++
+
+This an attempt to fix an issue introduced by https://reviews.llvm.org/D70662
+
+Function-scope static initialization are guarded in C++, so we should probably
+not use it because it introduces a dependency on __cxa_guard* symbols.
+In the context of clang, libasan is linked statically, and it currently needs to
+the odd situation where compiling C code with clang and asan requires -lstdc++.
+
+I'm unsure of the portability requirements, providing a potential solution in
+this review.
+
+Differential Revision: https://reviews.llvm.org/D102475
+---
+ compiler-rt/lib/sanitizer_common/sanitizer_posix_libcdep.cpp | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_posix_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_posix_libcdep.cpp
+index 2b10bdd..818f1af 100644
+--- a/compiler-rt/lib/sanitizer_common/sanitizer_posix_libcdep.cpp
++++ b/compiler-rt/lib/sanitizer_common/sanitizer_posix_libcdep.cpp
+@@ -15,6 +15,7 @@
+ 
+ #if SANITIZER_POSIX
+ 
++#include "sanitizer_atomic.h"
+ #include "sanitizer_common.h"
+ #include "sanitizer_flags.h"
+ #include "sanitizer_platform_limits_netbsd.h"
+@@ -166,9 +167,14 @@ bool SupportsColoredOutput(fd_t fd) {
+ #if !SANITIZER_GO
+ // TODO(glider): different tools may require different altstack size.
+ static uptr GetAltStackSize() {
+-  // SIGSTKSZ is not enough.
+-  static const uptr kAltStackSize = SIGSTKSZ * 4;
+-  return kAltStackSize;
++  static atomic_uintptr_t kAltStackSize{0};
++  uptr ret = atomic_load(&kAltStackSize, memory_order_relaxed);
++  if (ret == 0) {
++    // SIGSTKSZ is not enough.
++    ret = SIGSTKSZ * 4;
++    atomic_store(&kAltStackSize, ret, memory_order_relaxed);
++  }
++  return ret;
+ }
+ 
+ void SetAlternateSignalStack() {
+-- 
+1.8.3.1
+

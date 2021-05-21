@@ -10,7 +10,7 @@
 
 Name:		compiler-rt
 Version:	12.0.0%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -21,8 +21,8 @@ Source2:	tstellar-gpg-key.asc
 
 Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
 Patch1:		0002-PATCH-compiler-rt-Sanitizer-built-against-glibc-2.34.patch
-Patch2:		D102059.diff
-Patch3:		0003-PATCH-compiler-rt-Do-not-introduce-a-dependency-on-c.patch
+Patch3:		0003-PATCH-compiler-rt-Prevent-introduction-of-a-dependen.patch
+Patch4:		0004-PATCH-compiler-rt-libsanitizer-Remove-cyclades-inclu.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -112,6 +112,10 @@ popd
 %endif
 
 %changelog
+* Fri May 21 2021 sguelton@redhat.com - 12.0.0-3
+- Update removal of C++ dep to follow upstream
+- Backport linux/cyclade.h removal patch
+
 * Mon May 10 2021 sguelton@redhat.com - 12.0.0-2
 - Backport 82150606fb11d28813ae6
 
