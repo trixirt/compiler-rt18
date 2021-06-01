@@ -1,6 +1,6 @@
-#%%global rc_ver 5
+%global rc_ver 1
 
-%global crt_srcdir compiler-rt-%{version}%{?rc_ver:rc%{rc_ver}}.src
+%global crt_srcdir compiler-rt-12.0.1%{?rc_ver:rc%{rc_ver}}.src
 
 # see https://sourceware.org/bugzilla/show_bug.cgi?id=25271
 %global optflags %(echo %{optflags} -D_DEFAULT_SOURCE)
@@ -9,8 +9,8 @@
 %global optflags %(echo %{optflags} -Dasm=__asm__)
 
 Name:		compiler-rt
-Version:	12.0.0%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Version:	12.0.1%{?rc_ver:~rc%{rc_ver}}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -112,6 +112,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 01 2021 Tom Stellard <tstellar@redhat.com> - 12.0.1~rc1-1
+- 12.0.1-rc1 Release
+
 * Fri May 21 2021 sguelton@redhat.com - 12.0.0-3
 - Update removal of C++ dep to follow upstream
 - Backport linux/cyclade.h removal patch
