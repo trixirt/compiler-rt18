@@ -1,6 +1,7 @@
 %global rc_ver 1
 
-%global crt_srcdir compiler-rt-12.0.1%{?rc_ver:rc%{rc_ver}}.src
+%global compiler_rt_version 12.0.1
+%global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # see https://sourceware.org/bugzilla/show_bug.cgi?id=25271
 %global optflags %(echo %{optflags} -D_DEFAULT_SOURCE)
@@ -9,14 +10,14 @@
 %global optflags %(echo %{optflags} -Dasm=__asm__)
 
 Name:		compiler-rt
-Version:	12.0.1%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
-Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz
-Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz.sig
+Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz
+Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz.sig
 Source2:	tstellar-gpg-key.asc
 
 Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
@@ -69,15 +70,15 @@ pathfix.py -i %{__python3} -pn lib/hwasan/scripts/hwasan_symbolize
 %cmake_install
 
 # move blacklist/abilist files to where clang expect them
-mkdir -p %{buildroot}%{_libdir}/clang/%{version}/share
-mv -v %{buildroot}%{_datadir}/*list.txt  %{buildroot}%{_libdir}/clang/%{version}/share/
+mkdir -p %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/share
+mv -v %{buildroot}%{_datadir}/*list.txt  %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/share/
 
 # move sanitizer libs to better place
 %global libclang_rt_installdir lib/linux
-mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib
-mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/*clang_rt* %{buildroot}%{_libdir}/clang/%{version}/lib
-mkdir -p %{buildroot}%{_libdir}/clang/%{version}/lib/linux/
-pushd %{buildroot}%{_libdir}/clang/%{version}/lib
+mkdir -p %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/lib
+mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/*clang_rt* %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/lib
+mkdir -p %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/lib/linux/
+pushd %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/lib
 for i in *.a *.so
 do
 	ln -s ../$i linux/$i
@@ -87,11 +88,11 @@ done
 # the symlinks will be dangling if the 32 bits version is not installed, but that should be fine
 %ifarch x86_64
 
-mkdir -p %{buildroot}/%{_exec_prefix}/lib/clang/%{version}/lib/linux
+mkdir -p %{buildroot}/%{_exec_prefix}/lib/clang/%{compiler_rt_version}/lib/linux
 for i in *.a *.so
 do
 	target=`echo "$i" | sed -e 's/x86_64/i386/'`
-	ln -s ../../../../../lib/clang/%{version}/lib/$target ../../../../%{_lib}/clang/%{version}/lib/linux/
+	ln -s ../../../../../lib/clang/%{compiler_rt_version}/lib/$target ../../../../%{_lib}/clang/%{compiler_rt_version}/lib/linux/
 done
 
 %endif
@@ -105,13 +106,16 @@ popd
 %files
 %license LICENSE.TXT
 %{_includedir}/*
-%{_libdir}/clang/%{version}/lib/*
-%{_libdir}/clang/%{version}/share/*
+%{_libdir}/clang/%{compiler_rt_version}/lib/*
+%{_libdir}/clang/%{compiler_rt_version}/share/*
 %ifarch x86_64 aarch64
 %{_bindir}/hwasan_symbolize
 %endif
 
 %changelog
+* Fri Jun 04 2021 Tom Stellard <tstellar@redhat.com> - 12.0.1~rc1-2
+- Fix installation paths
+
 * Tue Jun 01 2021 Tom Stellard <tstellar@redhat.com> - 12.0.1~rc1-1
 - 12.0.1-rc1 Release
 
