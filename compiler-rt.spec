@@ -1,4 +1,4 @@
-%global rc_ver 1
+%global rc_ver 3
 
 %global compiler_rt_version 12.0.1
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -11,7 +11,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -21,9 +21,6 @@ Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compil
 Source2:	tstellar-gpg-key.asc
 
 Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
-Patch1:		0002-PATCH-compiler-rt-Sanitizer-built-against-glibc-2.34.patch
-Patch3:		0003-PATCH-compiler-rt-Prevent-introduction-of-a-dependen.patch
-Patch4:		0004-PATCH-compiler-rt-libsanitizer-Remove-cyclades-inclu.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -113,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Wed Jun 30 2021 Tom Stellard <tstellar@redhat.com> - 12.0.1~rc3-1
+- 12.0.1-rc3 Release
+
 * Fri Jun 04 2021 Tom Stellard <tstellar@redhat.com> - 12.0.1~rc1-2
 - Fix installation paths
 
