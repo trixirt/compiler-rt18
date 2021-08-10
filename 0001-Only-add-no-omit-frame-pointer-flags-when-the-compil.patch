@@ -1,0 +1,30 @@
+From 1738127904d20d403d8cf8ad67b0f68d728ad6b8 Mon Sep 17 00:00:00 2001
+From: Tom Stellard <tstellar@redhat.com>
+Date: Mon, 9 Aug 2021 13:57:40 -0700
+Subject: [PATCH] Only add no-omit-frame-pointer flags when the compiler
+ supports them
+
+---
+ compiler-rt/lib/scudo/standalone/CMakeLists.txt | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/compiler-rt/lib/scudo/standalone/CMakeLists.txt b/compiler-rt/lib/scudo/standalone/CMakeLists.txt
+index 8c3708d3a45f..6a1f2f3accff 100644
+--- a/compiler-rt/lib/scudo/standalone/CMakeLists.txt
++++ b/compiler-rt/lib/scudo/standalone/CMakeLists.txt
+@@ -124,8 +124,10 @@ if (COMPILER_RT_HAS_GWP_ASAN)
+        RTGwpAsan RTGwpAsanBacktraceLibc RTGwpAsanSegvHandler
+        RTGwpAsanOptionsParser)
+ 
+-  list(APPEND SCUDO_CFLAGS -DGWP_ASAN_HOOKS -fno-omit-frame-pointer
+-                           -mno-omit-leaf-frame-pointer)
++  append_list_if(COMPILER_RT_HAS_OMIT_FRAME_POINTER_FLAG -fno-omit-frame-pointer
++                 SCUDO_CFLAGS)
++  list(APPEND SCUDO_CFLAGS -DGWP_ASAN_HOOKS)
++
+ endif()
+ 
+ set(SCUDO_LINK_LIBS)
+-- 
+2.27.0
+

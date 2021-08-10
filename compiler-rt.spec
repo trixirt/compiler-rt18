@@ -1,6 +1,6 @@
-#global rc_ver 3
+%global rc_ver 1
 
-%global compiler_rt_version 12.0.1
+%global compiler_rt_version 13.0.0
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # see https://sourceware.org/bugzilla/show_bug.cgi?id=25271
@@ -11,7 +11,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -21,6 +21,7 @@ Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compil
 Source2:	tstellar-gpg-key.asc
 
 Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
+Patch1:		0001-Only-add-no-omit-frame-pointer-flags-when-the-compil.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -110,6 +111,9 @@ popd
 %endif
 
 %changelog
+* Mon Aug 09 2021 Tom Stellard <tstellar@redhat.com> = 13.0.0~rc1-1
+- 13.0.0-rc1 Release
+
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
