@@ -1,4 +1,4 @@
-%global rc_ver 1
+%global rc_ver 3
 
 %global compiler_rt_version 13.0.0
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -21,7 +21,7 @@ Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compil
 Source2:	tstellar-gpg-key.asc
 
 Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
-Patch1:		0001-Only-add-no-omit-frame-pointer-flags-when-the-compil.patch
+Patch1:		0001-Fix-compiler-rt-arch-detection-for-ppc64le.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -111,6 +111,9 @@ popd
 %endif
 
 %changelog
+* Wed Sep 22 2021 Tom Stellard <tsellar@redhat.com> - 13.0.0~rc3-1
+- 13.0.0-rc3 Release
+
 * Mon Aug 09 2021 Tom Stellard <tstellar@redhat.com> = 13.0.0~rc1-1
 - 13.0.0-rc1 Release
 
