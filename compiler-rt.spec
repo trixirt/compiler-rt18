@@ -1,4 +1,4 @@
-%global rc_ver 3
+#global rc_ver 3
 
 %global compiler_rt_version 13.0.0
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -111,6 +111,9 @@ popd
 %endif
 
 %changelog
+* Fri Oct 01 2021 Tom Stellard <tstellar@redhat.com> -13.0.0-1
+- 13.0.0 Release
+
 * Wed Sep 22 2021 Tom Stellard <tsellar@redhat.com> - 13.0.0~rc3-1
 - 13.0.0-rc3 Release
 
