@@ -53,6 +53,7 @@ pathfix.py -i %{__python3} -pn lib/hwasan/scripts/hwasan_symbolize
 %cmake  -GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DLLVM_CONFIG_PATH:FILEPATH=%{_bindir}/llvm-config-%{__isa_bits} \
+	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	\
 %if 0%{?__isa_bits} == 64
 	-DLLVM_LIBDIR_SUFFIX=64 \
