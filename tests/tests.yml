@@ -8,11 +8,14 @@
       - cmake
       - llvm-devel
       - clang
+      - clang-devel
       - clang-analyzer
       - clang-tools-extra
       - compiler-rt
       - ninja-build
       - libcxx-devel
+      - libstdc++-devel
+      - libstdc++-static
       - libomp-devel
       - python-lit
       - lld
