@@ -50,7 +50,7 @@ instrumentation, and Blocks C language extension.
 %py3_shebang_fix lib/hwasan/scripts/hwasan_symbolize
 
 %build
-%cmake  -GNinja \
+%cmake	-GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DLLVM_CONFIG_PATH:FILEPATH=%{_bindir}/llvm-config-%{__isa_bits} \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
@@ -112,13 +112,13 @@ popd
 %endif
 
 %changelog
-* Fri Oct 01 2021 Tom Stellard <tstellar@redhat.com> -13.0.0-1
+* Fri Oct 01 2021 Tom Stellard <tstellar@redhat.com> - 13.0.0-1
 - 13.0.0 Release
 
 * Wed Sep 22 2021 Tom Stellard <tsellar@redhat.com> - 13.0.0~rc3-1
 - 13.0.0-rc3 Release
 
-* Mon Aug 09 2021 Tom Stellard <tstellar@redhat.com> = 13.0.0~rc1-1
+* Mon Aug 09 2021 Tom Stellard <tstellar@redhat.com> - 13.0.0~rc1-1
 - 13.0.0-rc1 Release
 
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-2

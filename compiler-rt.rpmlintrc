@@ -1,0 +1,7 @@
+# This is a devel package
+addFilter("W: devel-file-in-non-devel-package")
+
+# These symlinks are dangling on x64_64
+addFilter("compiler-rt.x86_64: W: dangling-relative-symlink /usr/lib64/clang/[0-9]+.[0-9]+.[0-9]+/")
+
+addFilter("E: hardcoded-library-path in ../../lib/clang/")
