@@ -28,7 +28,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	ninja-build
 BuildRequires:	python3
-# We need python3-devel for pathfix.py.
+# We need python3-devel for %%py3_shebang_fix
 BuildRequires:	python3-devel
 BuildRequires:	llvm-devel = %{version}
 
@@ -47,7 +47,7 @@ instrumentation, and Blocks C language extension.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{crt_srcdir} -p2
 
-pathfix.py -i %{__python3} -pn lib/hwasan/scripts/hwasan_symbolize
+%py3_shebang_fix lib/hwasan/scripts/hwasan_symbolize
 
 %build
 %cmake  -GNinja \
