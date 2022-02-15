@@ -1,0 +1,21 @@
+---
+# For compiler-rt, we filter out the following forbidden functions from the list:
+# - gethostbyname
+# - gethostbyname2
+# - gethostbyaddr
+# - inet_aton
+# These are never actually used, and are installed just as interceptors.
+badfuncs:
+    - inet_addr
+    - inet_nsap_addr
+    - inet_ntoa
+    - inet_nsap_ntoa
+    - inet_makeaddr
+    - inet_netof
+    - inet_network
+    - inet_neta
+    - inet_net_ntop
+    - inet_net_pton
+    - rcmd
+    - rexec
+    - rresvport
