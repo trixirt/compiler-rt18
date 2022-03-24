@@ -1,6 +1,5 @@
+%global compiler_rt_version 14.0.0
 #global rc_ver 2
-
-%global compiler_rt_version 13.0.1
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # see https://sourceware.org/bugzilla/show_bug.cgi?id=25271
@@ -20,7 +19,7 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compil
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz.sig
 Source2:	tstellar-gpg-key.asc
 
-Patch0:		0001-PATCH-compiler-rt-Workaround-libstdc-limitation-wrt..patch
+Patch0:		add-llvm-cmake-package.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -30,6 +29,7 @@ BuildRequires:	python3
 # We need python3-devel for %%py3_shebang_fix
 BuildRequires:	python3-devel
 BuildRequires:	llvm-devel = %{version}
+BuildRequires:	llvm-cmake-devel = %{version}
 
 # For gpg source verification
 BuildRequires:	gnupg2
@@ -111,6 +111,9 @@ popd
 %endif
 
 %changelog
+* Thu Mar 24 2022 Timm Bäder <tbaeder@redhat.com> - 14.0.0-1
+- Update to 14.0.0
+
 * Thu Feb 03 2022 Nikita Popov <npopov@redhat.com> - 13.0.1-1
 - Update to LLVM 13.0.1 final
 
