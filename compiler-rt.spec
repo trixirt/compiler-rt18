@@ -10,7 +10,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -29,7 +29,6 @@ BuildRequires:	python3
 # We need python3-devel for %%py3_shebang_fix
 BuildRequires:	python3-devel
 BuildRequires:	llvm-devel = %{version}
-BuildRequires:	llvm-cmake-devel = %{version}
 
 # For gpg source verification
 BuildRequires:	gnupg2
@@ -111,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Fri Apr 29 2022 Timm Bäder <tbaeder@redhat.com> - 14.0.0-2
+- Remove llvm-cmake-devel BR
+
 * Thu Mar 24 2022 Timm Bäder <tbaeder@redhat.com> - 14.0.0-1
 - Update to 14.0.0
 
