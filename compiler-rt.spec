@@ -1,4 +1,4 @@
-%global compiler_rt_version 14.0.0
+%global compiler_rt_version 14.0.5
 #global rc_ver 2
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -10,7 +10,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -110,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Mon Jun 20 2022 Timm Bäder <tbaeder@redhat.com> - 14.0.5-1
+- Update to 14.0.5
+
 * Fri Apr 29 2022 Timm Bäder <tbaeder@redhat.com> - 14.0.0-2
 - Remove llvm-cmake-devel BR
 
