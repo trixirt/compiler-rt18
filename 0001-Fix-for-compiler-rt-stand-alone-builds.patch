@@ -1,0 +1,25 @@
+From c6d15e4a5fc0a012356eb984e617ddb6d05ff8a6 Mon Sep 17 00:00:00 2001
+From: Tom Stellard <tstellar@redhat.com>
+Date: Fri, 29 Jul 2022 23:37:43 -0700
+Subject: [PATCH] Fix for compiler-rt stand-alone builds
+
+---
+ compiler-rt/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
+index 62737735695f..70568cdb201c 100644
+--- a/compiler-rt/CMakeLists.txt
++++ b/compiler-rt/CMakeLists.txt
+@@ -68,7 +68,7 @@ set(COMPILER_RT_BAREMETAL_BUILD OFF CACHE BOOL
+   "Build for a bare-metal target.")
+ 
+ if (COMPILER_RT_STANDALONE_BUILD)
+-  load_llvm_config()
++  find_package(LLVM)
+   if (TARGET intrinsics_gen)
+     # Loading the llvm config causes this target to be imported so place it
+     # under the appropriate folder in an IDE.
+-- 
+2.27.0
+

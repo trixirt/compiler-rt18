@@ -1,5 +1,5 @@
-%global compiler_rt_version 14.0.5
-#global rc_ver 2
+%global compiler_rt_version 15.0.0
+#global rc_ver 3
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # see https://sourceware.org/bugzilla/show_bug.cgi?id=25271
@@ -10,16 +10,16 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
 URL:		http://llvm.org
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz.sig
-Source2:	tstellar-gpg-key.asc
+Source2:	release-keys.asc
 
-Patch0:		add-llvm-cmake-package.patch
+Patch0:		0001-Fix-for-compiler-rt-stand-alone-builds.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -50,7 +50,7 @@ instrumentation, and Blocks C language extension.
 %build
 %cmake	-GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-	-DLLVM_CONFIG_PATH:FILEPATH=%{_bindir}/llvm-config-%{__isa_bits} \
+	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	\
 %if 0%{?__isa_bits} == 64
@@ -110,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Tue Sep 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-1
+- Update to LLVM 15.0.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
