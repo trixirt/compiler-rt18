@@ -29,10 +29,14 @@ adjust:
     when: "collection == llvm-toolset-14.0"
 
 discover:
+    - name: compiler-rt-tests
+      how: fmf
+      url: https://src.fedoraproject.org/tests/compiler-rt.git
+      ref: main
     - name: upstream-llvm-integration-testsuite
       how: fmf
-      url: https://src.fedoraproject.org/rpms/llvm.git
-      ref: rawhide
+      url: https://src.fedoraproject.org/tests/llvm.git
+      ref: main
       test: integration-test-suite
 execute:
     how: tmt
