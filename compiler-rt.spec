@@ -10,7 +10,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -48,6 +48,9 @@ instrumentation, and Blocks C language extension.
 %py3_shebang_fix lib/hwasan/scripts/hwasan_symbolize
 
 %build
+# Copy CFLAGS into ASMFLAGS, so -fcf-protection is used when compiling assembly files.
+export ASMFLAGS=$CFLAGS
+
 %cmake	-GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
@@ -110,6 +113,9 @@ popd
 %endif
 
 %changelog
+* Tue Sep 13 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-2
+- Make sure asm files are built with -fcf-protection
+
 * Tue Sep 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-1
 - Update to LLVM 15.0.0
 
