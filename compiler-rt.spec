@@ -1,4 +1,8 @@
+# Fails to build due to https://bugzilla.redhat.com/show_bug.cgi?id=2140618.
+%ifnarch ppc64le
 %global toolchain clang
+%endif
+
 %global compiler_rt_version 15.0.4
 #global rc_ver 3
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
