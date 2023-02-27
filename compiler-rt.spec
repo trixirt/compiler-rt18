@@ -5,7 +5,7 @@
 %undefine _include_frame_pointers
 
 %global compiler_rt_version 16.0.0
-%global rc_ver 1
+%global rc_ver 3
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -126,6 +126,9 @@ popd
 %endif
 
 %changelog
+* Thu Feb 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
 * Wed Feb 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc1-1
 - Update to LLVM 16.0.0 RC1
 
