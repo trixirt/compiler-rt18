@@ -4,8 +4,12 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global compiler_rt_version 16.0.0
+%global maj_ver 16
+%global min_ver 0
+%global patch_ver 0
 %global rc_ver 3
+%global compiler_rt_version %{maj_ver}.%{min_ver}.%{patch_ver}
+
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -17,7 +21,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -83,15 +87,15 @@ export ASMFLAGS=$CFLAGS
 %cmake_install
 
 # move blacklist/abilist files to where clang expect them
-mkdir -p %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/share
-mv -v %{buildroot}%{_datadir}/*list.txt  %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/share/
+mkdir -p %{buildroot}%{_libdir}/clang/%{maj_ver}/share
+mv -v %{buildroot}%{_datadir}/*list.txt  %{buildroot}%{_libdir}/clang/%{maj_ver}/share/
 
 # move sanitizer libs to better place
 %global libclang_rt_installdir lib/linux
-mkdir -p %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/lib
-mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/*_rt* %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/lib
-mkdir -p %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/lib/linux/
-pushd %{buildroot}%{_libdir}/clang/%{compiler_rt_version}/lib
+mkdir -p %{buildroot}%{_libdir}/clang/%{maj_ver}/lib
+mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/*_rt* %{buildroot}%{_libdir}/clang/%{maj_ver}/lib
+mkdir -p %{buildroot}%{_libdir}/clang/%{maj_ver}/lib/linux/
+pushd %{buildroot}%{_libdir}/clang/%{maj_ver}/lib
 for i in *.a *.so
 do
 	ln -s ../$i linux/$i
@@ -101,11 +105,11 @@ done
 # the symlinks will be dangling if the 32 bits version is not installed, but that should be fine
 %ifarch x86_64
 
-mkdir -p %{buildroot}/%{_exec_prefix}/lib/clang/%{compiler_rt_version}/lib/linux
+mkdir -p %{buildroot}/%{_exec_prefix}/lib/clang/%{maj_ver}/lib/linux
 for i in *.a *.so
 do
 	target=`echo "$i" | sed -e 's/x86_64/i386/'`
-	ln -s ../../../../../lib/clang/%{compiler_rt_version}/lib/$target ../../../../%{_lib}/clang/%{compiler_rt_version}/lib/linux/
+	ln -s ../../../../../lib/clang/%{maj_ver}/lib/$target ../../../../%{_lib}/clang/%{maj_ver}/lib/linux/
 done
 
 %endif
@@ -119,13 +123,16 @@ popd
 %files
 %license LICENSE.TXT
 %{_includedir}/*
-%{_libdir}/clang/%{compiler_rt_version}/lib/*
-%{_libdir}/clang/%{compiler_rt_version}/share/*
+%{_libdir}/clang/%{maj_ver}/lib/*
+%{_libdir}/clang/%{maj_ver}/share/*
 %ifarch x86_64 aarch64
 %{_bindir}/hwasan_symbolize
 %endif
 
 %changelog
+* Mon Mar 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-2
+- Fix the path of the libraries
+
 * Thu Feb 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
 - Update to LLVM 16.0.0 RC3
 
