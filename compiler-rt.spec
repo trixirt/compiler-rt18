@@ -7,7 +7,7 @@
 %global maj_ver 16
 %global min_ver 0
 %global patch_ver 0
-%global rc_ver 3
+%global rc_ver 4
 %global compiler_rt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -21,7 +21,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -130,6 +130,9 @@ popd
 %endif
 
 %changelog
+* Wed Mar 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
 * Mon Mar 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-2
 - Fix the path of the libraries
 
