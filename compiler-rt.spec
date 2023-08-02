@@ -34,7 +34,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -105,6 +105,11 @@ export ASMFLAGS=$CFLAGS
 %install
 
 %cmake_install
+%ifarch ppc64le
+# Fix install path on ppc64le so that the directory name matches the triple used
+# by clang.
+mv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/powerpc64le-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/ppc64le-redhat-linux-gnu
+%endif
 
 %check
 #%%cmake_build --target check-compiler-rt
@@ -123,6 +128,9 @@ export ASMFLAGS=$CFLAGS
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Wed Aug 02 2023 Tom Stellard <tstellar@redhat.com> - 17.0.0~rc1-2
+- Fix for ppc64le
 
 * Thu Aug 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
 - Update to LLVM 17.0.0 RC1
