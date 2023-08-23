@@ -129,7 +129,7 @@ mv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/powerpc64le-redhat-linux-gnu 
 %changelog
 %{?llvm_snapshot_changelog_entry}
 
-* Wed Aug 02 2023 Tom Stellard <tstellar@redhat.com> - 17.0.0~rc1-2
+* Thu Aug 03 2023 Tom Stellard <tstellar@redhat.com> - 17.0.0~rc1-2
 - Fix for ppc64le
 
 * Thu Aug 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
