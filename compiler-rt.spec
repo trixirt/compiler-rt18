@@ -12,6 +12,8 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
+%bcond_with compat_build
+
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 6
@@ -26,13 +28,19 @@
 
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
+%if %{with compat_build}
+%global pkg_name compiler-rt%{maj_ver}
+%else
+%global pkg_name compiler-rt
+%endif
+
 # see https://sourceware.org/bugzilla/show_bug.cgi?id=25271
 %global optflags %(echo %{optflags} -D_DEFAULT_SOURCE)
 
 # see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93615
 %global optflags %(echo %{optflags} -Dasm=__asm__)
 
-Name:		compiler-rt
+Name:		%{pkg_name}
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
 Release:	5%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
