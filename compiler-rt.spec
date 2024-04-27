@@ -42,7 +42,7 @@
 
 Name:		%{pkg_name}
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -134,7 +134,7 @@ ln -s i386-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{_t
 
 %files
 %license LICENSE.TXT
-%ifarch x86_64 aarch64
+%ifarch x86_64 aarch64 riscv64
 %{_prefix}/lib/clang/%{maj_ver}/bin/*
 %endif
 %{_prefix}/lib/clang/%{maj_ver}/include/*
@@ -145,6 +145,9 @@ ln -s i386-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{_t
 #%endif
 
 %changelog
+* Sat Apr 27 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 18.1.3-2
+- Add riscv64 support
+
 * Wed Apr 17 2024 Tom Stellard <tstellar@redhat.com> - 18.1.3-1
 - 18.1.3 Release
 
