@@ -16,7 +16,7 @@
 
 %global maj_ver 18
 %global min_ver 1
-%global patch_ver 6
+%global patch_ver 7
 #global rc_ver 4
 %if %{with snapshot_build}
 %global maj_ver %{llvm_snapshot_version_major}
@@ -145,6 +145,9 @@ ln -s i386-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{_t
 #%endif
 
 %changelog
+* Thu Jun 13 2024 Tom Stellard <tstellar@redhat.com> - 18.1.7-1
+- 18.1.7 Release
+
 * Mon May 20 2024 Tom Stellard <tstellar@redhat.com> - 18.1.6-1
 - 18.1.6 Release
 
