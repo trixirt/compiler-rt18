@@ -13,6 +13,12 @@
 %undefine _include_frame_pointers
 
 %bcond_without compat_build
+%bcond_without old_clang
+
+%if %{with old_clang}
+%global last_maj_ver 17
+%global _lto_cflags %nil
+%endif
 
 %global maj_ver 18
 %global min_ver 1
@@ -58,7 +64,11 @@ Source2:	release-keys.asc
 
 Patch0:		0001-compiler-rt-Fix-FLOAT16-feature-detection.patch
 
+%if %{with old_clang}
+BuildRequires:	clang%{last_maj_ver}
+%else
 BuildRequires:	clang
+%endif
 BuildRequires:	cmake
 BuildRequires:	ninja-build
 BuildRequires:	python3
@@ -92,6 +102,11 @@ ln -s %{_datadir}/llvm/cmake ../cmake
 %build
 # Copy CFLAGS into ASMFLAGS, so -fcf-protection is used when compiling assembly files.
 export ASMFLAGS=$CFLAGS
+
+%if %{with old_clang}
+export CC=%{_libdir}/llvm%{last_maj_ver}/bin/clang
+export CXX=%{_libdir}/llvm%{last_maj_ver}/bin/clang++
+%endif
 
 %cmake	-GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
